@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {COLORS} from '../../utilities/Colors';
 import {isiOS} from '../../utilities/Constants';
+import {debounce} from '../../utilities/GlobalFunctions';
 import Messages from '../../utilities/Messages';
 import {styles} from './Styles';
 
@@ -23,9 +24,9 @@ const TaskAdder = ({setter}) => {
         <TextInput
           style={styles.taskInputInfo}
           placeholder="Write a task?"
-          value={toDoItem}
-          onChangeText={setToDoItem}
-        />
+          onChangeText={debounce(setToDoItem, 300)}>
+          {toDoItem}
+        </TextInput>
       </KeyboardAvoidingView>
 
       <TouchableHighlight
