@@ -27,7 +27,10 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  taskInfo: {fontSize: moderateScale(15)},
+  taskInfo: {
+    fontSize: moderateScale(15),
+    flexShrink: -1,
+  },
   taskIcon: {
     backgroundColor: COLORS.info300,
     width: scale(20),
