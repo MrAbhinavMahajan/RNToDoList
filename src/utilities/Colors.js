@@ -78,6 +78,7 @@ export const COLORS = {
   lightYellow: '#FDD590',
   yellow: '#FFB129',
   semiDarkYellow: '#FAAD39',
+  darkYellow: '#ff8303',
   lightGreen: '#1DC7AC',
   green: '#1DC76B',
   lightRed: '#FE4A54',

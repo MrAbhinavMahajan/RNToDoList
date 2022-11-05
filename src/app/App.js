@@ -90,7 +90,9 @@ const App = () => {
           }
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={ListEmptyComponent}
-          keyExtractor={(item, index) => index?.toString()}
+          keyExtractor={(item, index) => {
+            return `KEY_${index}_${Date.now()}`;
+          }}
         />
         <TaskAdder setter={handleAddTask} />
       </View>

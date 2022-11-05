@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: verticalGap,
+    marginVertical: verticalGap,
   },
   taskInputWrapper: {
     flex: 1,
@@ -21,15 +21,15 @@ export const styles = StyleSheet.create({
     fontSize: moderateScale(15),
   },
   taskIconWrapper: {
+    width: scale(50),
+    aspectRatio: 1,
     backgroundColor: COLORS.white,
     borderRadius: scale(25),
-    aspectRatio: 1,
-    width: scale(50),
     justifyContent: 'center',
     alignItems: 'center',
   },
   taskIcon: {
-    fontSize: moderateScale(35),
+    fontSize: moderateScale(30),
     fontWeight: '400',
   },
 });

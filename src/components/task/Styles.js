@@ -1,9 +1,22 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale, scale} from 'react-native-size-matters';
 import {COLORS} from '../../utilities/Colors';
-import {verticalGap} from '../../utilities/GlobalStyles';
+import {horizontalGap, verticalGap} from '../../utilities/GlobalStyles';
 
 export const styles = StyleSheet.create({
+  rightSwipeableAction: {
+    backgroundColor: COLORS.darkYellow,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    marginBottom: verticalGap,
+    marginLeft: -scale(8),
+    paddingHorizontal: horizontalGap,
+    borderTopEndRadius: scale(10),
+  },
+  rightSwipeableTitle: {
+    fontSize: moderateScale(15),
+    fontWeight: '600',
+  },
   taskPressable: {
     backgroundColor: COLORS.basic100,
     marginBottom: verticalGap,

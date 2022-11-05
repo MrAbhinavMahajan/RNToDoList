@@ -37,8 +37,8 @@ const TaskAdder = ({setter}) => {
             Alert.alert(Messages.taskTitle, Messages.invalidTaskInfo);
           }
         }}
-        underlayColor={COLORS.basic500}
-        style={styles.taskIconWrapper}>
+        style={styles.taskIconWrapper}
+        underlayColor={COLORS.basic500}>
         <Text style={styles.taskIcon}>+</Text>
       </TouchableHighlight>
     </View>
