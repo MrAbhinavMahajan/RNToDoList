@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import {moderateScale} from 'react-native-size-matters';
+import {moderateScale, scale} from 'react-native-size-matters';
 import Task from '../components/task/Task';
 import TaskAdder from '../components/taskAdder/TaskAdder';
 import {COLORS} from '../utilities/Colors';
@@ -60,7 +60,7 @@ const App = () => {
   }, []);
 
   const handleAddTask = item =>
-    setToDoListData([...toDoListData, {task: item}]);
+    setToDoListData([...(toDoListData ?? []), {task: item}]);
 
   const handleRemoveTask = removeIndex =>
     setToDoListData(
@@ -117,11 +117,11 @@ const STYLES = StyleSheet.create({
   emptyListWrapper: {
     backgroundColor: COLORS.info200,
     borderRadius: moderateScale(10),
-    padding: verticalGap,
+    padding: scale(12),
   },
   emptyListInfo: {
     textTransform: 'capitalize',
-    fontSize: moderateScale(18),
+    fontSize: moderateScale(15),
     fontWeight: '500',
   },
 });
