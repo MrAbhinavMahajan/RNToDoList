@@ -32,47 +32,43 @@ const renderTaskItem = (item, index, removeTask) => (
 
 const App = () => {
   const [toDoListData, setToDoListData] = useState();
-  const [status, setStatus] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const ListEmptyComponent = useCallback(
-    () => (
-      <View style={STYLES.emptyListWrapper}>
-        <Text style={STYLES.emptyListInfo}>No task added yet!</Text>
-      </View>
-    ),
-    [],
+  const ListEmptyComponent = (
+    <View style={STYLES.emptyListWrapper}>
+      <Text style={STYLES.emptyListInfo}>No task added yet!</Text>
+    </View>
   );
 
   const retrieveDataFromLocal = useCallback(async () => {
     let toDoListData = await AsyncStorage.getItem(storageKeys.toDoListData);
     if (isJSONParsable(toDoListData)) {
-      toDoListData = JSON.parse(toDoListData);
-      Promise.all([
-        setToDoListData(toDoListData),
-        setLoading(false),
-        setStatus(true),
-      ]);
+      toDoListData = await JSON.parse(toDoListData);
+      Promise.all([setToDoListData(toDoListData), setLoading(false)]);
     } else {
       setLoading(false);
-      setStatus(true);
     }
   }, []);
 
-  const handleAddTask = item =>
-    setToDoListData([...(toDoListData ?? []), {task: item}]);
+  const handleAddTask = useCallback(
+    item => setToDoListData([...(toDoListData ?? []), {task: item}]),
+    [toDoListData],
+  );
 
-  const handleRemoveTask = removeIndex =>
-    setToDoListData(
-      toDoListData?.filter((element, index) => index !== removeIndex),
-    );
+  const handleRemoveTask = useCallback(
+    removeIndex =>
+      setToDoListData(
+        toDoListData?.filter((element, index) => index !== removeIndex),
+      ),
+    [toDoListData],
+  );
 
   useEffect(() => {
     retrieveDataFromLocal();
   }, []);
 
   useEffect(() => {
-    status && saveDataToLocalStorage(toDoListData);
+    !!toDoListData && saveDataToLocalStorage(toDoListData);
   }, [toDoListData]);
 
   if (loading) {
