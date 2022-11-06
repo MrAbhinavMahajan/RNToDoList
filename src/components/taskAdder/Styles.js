@@ -1,13 +1,17 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale, scale} from 'react-native-size-matters';
 import {COLORS} from '../../utilities/Colors';
-import {horizontalGap, verticalGap} from '../../utilities/GlobalStyles';
+import {
+  footerHeight,
+  GLOBAL_STYLES,
+  horizontalGap,
+} from '../../utilities/GlobalStyles';
 
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: verticalGap,
+    height: footerHeight,
   },
   taskInputWrapper: {
     flex: 1,
@@ -21,12 +25,12 @@ export const styles = StyleSheet.create({
     fontSize: moderateScale(15),
   },
   taskIconWrapper: {
-    width: scale(50),
+    height: '100%',
     aspectRatio: 1,
     backgroundColor: COLORS.white,
-    borderRadius: scale(25),
     justifyContent: 'center',
     alignItems: 'center',
+    ...GLOBAL_STYLES.circle,
   },
   taskIcon: {
     fontSize: moderateScale(30),

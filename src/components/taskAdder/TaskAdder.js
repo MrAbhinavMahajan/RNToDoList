@@ -5,19 +5,19 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
-  View,
 } from 'react-native';
+import Animated from 'react-native-reanimated';
 import {COLORS} from '../../utilities/Colors';
 import {isiOS} from '../../utilities/Constants';
 import {debounce} from '../../utilities/GlobalFunctions';
 import Messages from '../../utilities/Messages';
 import {styles} from './Styles';
 
-const TaskAdder = ({setter}) => {
+const TaskAdder = ({setter, animatedStyles}) => {
   const [toDoItem, setToDoItem] = useState();
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, animatedStyles]}>
       <KeyboardAvoidingView
         behavior={isiOS ? 'padding' : 'height'}
         style={styles.taskInputWrapper}>
@@ -42,7 +42,7 @@ const TaskAdder = ({setter}) => {
         underlayColor={COLORS.basic500}>
         <Text style={styles.taskIcon}>+</Text>
       </TouchableHighlight>
-    </View>
+    </Animated.View>
   );
 };
 
