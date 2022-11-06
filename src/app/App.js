@@ -84,7 +84,7 @@ const App = () => {
   }, []);
 
   const handleAddTask = useCallback(
-    item => setToDoListData([...(toDoListData ?? []), {task: item}]),
+    item => setToDoListData([{task: item?.trim()}, ...(toDoListData ?? [])]),
     [toDoListData],
   );
 

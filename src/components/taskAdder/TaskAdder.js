@@ -24,6 +24,7 @@ const TaskAdder = ({setter, animatedStyles}) => {
         <TextInput
           style={styles.taskInputInfo}
           placeholder="Write a task?"
+          autoFocus
           onChangeText={debounce(setToDoItem, 300)}>
           {toDoItem}
         </TextInput>
