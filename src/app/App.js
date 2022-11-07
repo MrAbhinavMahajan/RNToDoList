@@ -111,7 +111,10 @@ const App = () => {
   return (
     <SafeAreaView style={STYLES.safeAreaWrapper}>
       <Animated.View style={[GLOBAL_STYLES.container]}>
-        <Text style={STYLES.headerTitleInfo}>To do's</Text>
+        <View style={STYLES.headerWrapper}>
+          <Text style={STYLES.headerTitleInfo}>To dos</Text>
+          <Text style={STYLES.headerCountInfo}>{toDoListData?.length}</Text>
+        </View>
         <Animated.FlatList
           data={toDoListData ?? []}
           renderItem={({item, index}) =>
@@ -142,14 +145,23 @@ const STYLES = StyleSheet.create({
     paddingTop: isAndroid && hasNotch ? StatusBar.currentHeight : 0,
     backgroundColor: appThemeColor,
   },
-  headerTitle: {
-    marginBottom: verticalGap,
+  headerWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   headerTitleInfo: {
     textTransform: 'capitalize',
-    fontSize: moderateScale(30),
+    fontSize: moderateScale(40),
     fontWeight: '600',
     color: COLORS.info200,
+    marginBottom: verticalGap,
+  },
+  headerCountInfo: {
+    textTransform: 'capitalize',
+    fontSize: moderateScale(30),
+    fontWeight: '600',
+    color: COLORS.danger600,
     marginBottom: verticalGap,
   },
   emptyListWrapper: {
