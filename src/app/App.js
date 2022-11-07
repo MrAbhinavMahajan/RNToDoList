@@ -1,23 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useCallback, useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import {moderateScale, scale} from 'react-native-size-matters';
+import {ActivityIndicator, SafeAreaView, Text, View} from 'react-native';
 import Task from '../components/task/Task';
 import TaskAdder from '../components/taskAdder/TaskAdder';
-import {COLORS} from '../utilities/Colors';
-import {
-  appThemeColor,
-  hasNotch,
-  isAndroid,
-  storageKeys,
-} from '../utilities/Constants';
+import {storageKeys} from '../utilities/Constants';
 import {
   footerHeight,
   GLOBAL_STYLES,
@@ -32,9 +18,10 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useAnimatedScrollHandler,
-  withTiming,
+  withSpring,
   interpolate,
 } from 'react-native-reanimated';
+import {APP_STYLES} from './Styles';
 
 const renderTaskItem = (item, index, removeTask) => (
   <Task task={item.task} index={index} removeTask={removeTask} />
@@ -49,10 +36,10 @@ const App = () => {
       const y = event.contentOffset.y;
       if (y < 10) {
         // here we should have the footer opened
-        footerVisibility.value = withTiming(1);
+        footerVisibility.value = withSpring(1);
       } else {
         // close the footer
-        footerVisibility.value = withTiming(0);
+        footerVisibility.value = withSpring(0);
       }
     },
   });
@@ -68,8 +55,8 @@ const App = () => {
   }));
 
   const ListEmptyComponent = (
-    <View style={STYLES.emptyListWrapper}>
-      <Text style={STYLES.emptyListInfo}>No task added yet!</Text>
+    <View style={APP_STYLES.emptyListWrapper}>
+      <Text style={APP_STYLES.emptyListInfo}>No task added yet!</Text>
     </View>
   );
 
@@ -109,11 +96,11 @@ const App = () => {
   }
 
   return (
-    <SafeAreaView style={STYLES.safeAreaWrapper}>
+    <SafeAreaView style={APP_STYLES.safeAreaWrapper}>
       <Animated.View style={[GLOBAL_STYLES.container]}>
-        <View style={STYLES.headerWrapper}>
-          <Text style={STYLES.headerTitleInfo}>To dos</Text>
-          <Text style={STYLES.headerCountInfo}>{toDoListData?.length}</Text>
+        <View style={APP_STYLES.headerWrapper}>
+          <Text style={APP_STYLES.headerTitle}>To dos</Text>
+          <Text style={APP_STYLES.headerCount}>{toDoListData?.length}</Text>
         </View>
         <Animated.FlatList
           data={toDoListData ?? []}
@@ -138,43 +125,6 @@ const App = () => {
     </SafeAreaView>
   );
 };
-
-const STYLES = StyleSheet.create({
-  safeAreaWrapper: {
-    flex: 1,
-    paddingTop: isAndroid && hasNotch ? StatusBar.currentHeight : 0,
-    backgroundColor: appThemeColor,
-  },
-  headerWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerTitleInfo: {
-    textTransform: 'capitalize',
-    fontSize: moderateScale(40),
-    fontWeight: '600',
-    color: COLORS.info200,
-    marginBottom: verticalGap,
-  },
-  headerCountInfo: {
-    textTransform: 'capitalize',
-    fontSize: moderateScale(30),
-    fontWeight: '600',
-    color: COLORS.danger600,
-    marginBottom: verticalGap,
-  },
-  emptyListWrapper: {
-    backgroundColor: COLORS.info200,
-    borderRadius: moderateScale(10),
-    padding: scale(12),
-  },
-  emptyListInfo: {
-    textTransform: 'capitalize',
-    fontSize: moderateScale(15),
-    fontWeight: '500',
-  },
-});
 
 export default App;
 
