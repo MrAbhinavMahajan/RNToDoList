@@ -9,9 +9,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-end',
     marginBottom: verticalGap,
-    marginLeft: -scale(8),
     paddingHorizontal: horizontalGap,
     borderTopEndRadius: scale(10),
+    flex: 1,
   },
   rightSwipeableTitle: {
     fontSize: moderateScale(15),
