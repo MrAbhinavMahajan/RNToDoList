@@ -1,12 +1,12 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale, scale} from 'react-native-size-matters';
-import {COLORS} from '../../utilities/Colors';
+import {COLORS} from '../../../utilities/Colors';
 import {
   appThemeColor,
   footerHeight,
   horizontalGap,
-} from '../../utilities/Constants';
-import {GLOBAL_STYLES} from '../../utilities/GlobalStyles';
+} from '../../../utilities/Constants';
+import {GLOBAL_STYLES} from '../../../utilities/Styles';
 
 export const styles = StyleSheet.create({
   container: {

@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale, scale} from 'react-native-size-matters';
-import {COLORS} from '../../utilities/Colors';
-import {horizontalGap, verticalGap} from '../../utilities/Constants';
+import {COLORS} from '../../../utilities/Colors';
+import {horizontalGap, verticalGap} from '../../../utilities/Constants';
 
 export const styles = StyleSheet.create({
   rightSwipeableAction: {

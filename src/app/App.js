@@ -2,15 +2,10 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {ActivityIndicator, SafeAreaView, View} from 'react-native';
 import {storageKeys, footerHeight, verticalGap} from '../utilities/Constants';
-import {GLOBAL_STYLES} from '../utilities/GlobalStyles';
+import {GLOBAL_STYLES} from '../utilities/Styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Task from '../components/task/Task';
-import TaskAdder from '../components/taskAdder/TaskAdder';
+import {isJSONParsable, saveDataToLocalStorage} from '../utilities/Functions';
 import {
-  isJSONParsable,
-  saveDataToLocalStorage,
-} from '../utilities/GlobalFunctions';
-import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useAnimatedScrollHandler,
@@ -18,15 +13,14 @@ import Animated, {
   interpolate,
 } from 'react-native-reanimated';
 import {APP_STYLES} from './Styles';
-import {AppText} from '../components/Extensions';
-
-const renderTaskItem = (item, index, removeTask) => (
-  <Task task={item.task} index={index} removeTask={removeTask} />
-);
+import TaskListHeader from '../components/task/header/Header';
+import TaskListFooter from '../components/task/footer/Footer';
+import {Tasklist} from '../components/task/list/Tasklist';
 
 const App = () => {
-  const [toDoListData, setToDoListData] = useState();
+  const [toDoListData, setToDoListData] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const footerVisibility = useSharedValue(1);
   const handler = useAnimatedScrollHandler({
     onScroll: event => {
@@ -50,12 +44,6 @@ const App = () => {
     ),
     marginBottom: interpolate(footerVisibility.value, [0, 1], [0, verticalGap]),
   }));
-
-  const ListEmptyComponent = (
-    <View style={APP_STYLES.emptyListWrapper}>
-      <AppText style={APP_STYLES.emptyListInfo}>No task added yet!</AppText>
-    </View>
-  );
 
   const retrieveDataFromLocal = useCallback(async () => {
     let toDoListData = await AsyncStorage.getItem(storageKeys.toDoListData);
@@ -94,33 +82,20 @@ const App = () => {
 
   return (
     <SafeAreaView style={APP_STYLES.safeAreaWrapper}>
-      <Animated.View style={[GLOBAL_STYLES.container]}>
-        <View style={APP_STYLES.headerWrapper}>
-          <AppText style={APP_STYLES.headerTitle}>To dos</AppText>
-          <AppText style={APP_STYLES.headerCount}>
-            {toDoListData?.length}
-          </AppText>
-        </View>
-        <Animated.FlatList
-          data={toDoListData ?? []}
-          renderItem={({item, index}) =>
-            renderTaskItem(item, index, handleRemoveTask)
-          }
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={ListEmptyComponent}
-          keyExtractor={(item, index) => {
-            return `KEY_${index}_${Date.now()}`;
-          }}
-          onScroll={handler}
-          scrollEventThrottle={1000 / 60}
-          // scrollEventThrottle, 60 frames every second the handler will be called
+      <View style={[GLOBAL_STYLES.container]}>
+        <TaskListHeader total={toDoListData?.length} />
+
+        <Tasklist
+          toDoListData={toDoListData}
+          handleRemoveTask={handleRemoveTask}
+          handler={handler}
         />
 
-        <TaskAdder
+        <TaskListFooter
           setter={handleAddTask}
           animatedStyles={animatedFooterStyle}
         />
-      </Animated.View>
+      </View>
     </SafeAreaView>
   );
 };

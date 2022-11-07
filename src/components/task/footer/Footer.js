@@ -1,14 +1,14 @@
-import React, {memo, useState} from 'react';
+import React, {useState} from 'react';
 import {Alert, KeyboardAvoidingView, TouchableHighlight} from 'react-native';
 import Animated from 'react-native-reanimated';
-import {COLORS} from '../../utilities/Colors';
-import {isiOS} from '../../utilities/Constants';
-import {debounce} from '../../utilities/GlobalFunctions';
-import Messages from '../../utilities/Messages';
-import {AppText, AppTextInput} from '../Extensions';
+import {COLORS} from '../../../utilities/Colors';
+import {isiOS} from '../../../utilities/Constants';
+import {debounce} from '../../../utilities/Functions';
+import Messages from '../../../utilities/Messages';
+import {AppText, AppTextInput} from '../../Extensions';
 import {styles} from './Styles';
 
-const TaskAdder = ({setter, animatedStyles}) => {
+const TaskListFooter = ({setter, animatedStyles}) => {
   const [toDoItem, setToDoItem] = useState();
 
   return (
@@ -42,4 +42,4 @@ const TaskAdder = ({setter, animatedStyles}) => {
   );
 };
 
-export default memo(TaskAdder);
+export default TaskListFooter;

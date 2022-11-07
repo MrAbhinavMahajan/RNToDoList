@@ -2,11 +2,11 @@
 import React, {memo, useCallback} from 'react';
 import {View, TouchableHighlight} from 'react-native';
 import {GestureHandlerRootView, Swipeable} from 'react-native-gesture-handler';
-import {COLORS} from '../../utilities/Colors';
-import {AppText} from '../Extensions';
+import {COLORS} from '../../../utilities/Colors';
+import {AppText} from '../../Extensions';
 import {styles} from './Styles';
 
-const Task = ({task, index, removeTask}) => {
+export const TaskCard = memo(({task, index, removeTask}) => {
   const removeTaskItem = useCallback(() => {
     removeTask(index);
   }, [removeTask]);
@@ -32,6 +32,4 @@ const Task = ({task, index, removeTask}) => {
       </Swipeable>
     </GestureHandlerRootView>
   );
-};
-
-export default memo(Task);
+});
