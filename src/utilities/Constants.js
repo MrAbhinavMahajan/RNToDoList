@@ -20,7 +20,7 @@ export const appThemeColor = COLORS.basic900;
 
 export const appTextColor = COLORS.black;
 
-export const placeholderColor = COLORS.black;
+export const placeholderColor = COLORS.basic600;
 
 export const footerHeight = verticalScale(45);
 

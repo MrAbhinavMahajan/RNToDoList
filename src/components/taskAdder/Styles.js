@@ -1,7 +1,11 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale, scale} from 'react-native-size-matters';
 import {COLORS} from '../../utilities/Colors';
-import {footerHeight, horizontalGap} from '../../utilities/Constants';
+import {
+  appThemeColor,
+  footerHeight,
+  horizontalGap,
+} from '../../utilities/Constants';
 import {GLOBAL_STYLES} from '../../utilities/GlobalStyles';
 
 export const styles = StyleSheet.create({
@@ -30,7 +34,12 @@ export const styles = StyleSheet.create({
     ...GLOBAL_STYLES.circle,
   },
   taskIcon: {
-    fontSize: moderateScale(30),
+    position: 'absolute',
+    zIndex: 1,
+    fontSize: moderateScale(25),
     fontWeight: '400',
+    color: appThemeColor,
+    textAlignVertical: 'center',
+    textAlign: 'center',
   },
 });
