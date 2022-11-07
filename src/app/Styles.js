@@ -1,5 +1,4 @@
 import {StatusBar, StyleSheet} from 'react-native';
-import {hasNotch} from 'react-native-device-info';
 import {moderateScale, scale} from 'react-native-size-matters';
 import {COLORS} from '../utilities/Colors';
 import {
@@ -7,6 +6,7 @@ import {
   isAndroid,
   horizontalGap,
   verticalGap,
+  hasNotch,
 } from '../utilities/Constants';
 
 export const APP_STYLES = StyleSheet.create({
