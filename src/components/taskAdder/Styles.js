@@ -1,11 +1,8 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale, scale} from 'react-native-size-matters';
 import {COLORS} from '../../utilities/Colors';
-import {
-  footerHeight,
-  GLOBAL_STYLES,
-  horizontalGap,
-} from '../../utilities/GlobalStyles';
+import {footerHeight, horizontalGap} from '../../utilities/Constants';
+import {GLOBAL_STYLES} from '../../utilities/GlobalStyles';
 
 export const styles = StyleSheet.create({
   container: {

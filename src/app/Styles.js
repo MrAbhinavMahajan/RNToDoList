@@ -2,8 +2,12 @@ import {StatusBar, StyleSheet} from 'react-native';
 import {hasNotch} from 'react-native-device-info';
 import {moderateScale, scale} from 'react-native-size-matters';
 import {COLORS} from '../utilities/Colors';
-import {appThemeColor, isAndroid} from '../utilities/Constants';
-import {horizontalGap, verticalGap} from '../utilities/GlobalStyles';
+import {
+  appThemeColor,
+  isAndroid,
+  horizontalGap,
+  verticalGap,
+} from '../utilities/Constants';
 
 export const APP_STYLES = StyleSheet.create({
   safeAreaWrapper: {

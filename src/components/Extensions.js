@@ -1,12 +1,12 @@
 import React from 'react';
 import {Text, TextInput} from 'react-native';
-import {COLORS} from '../utilities/Colors';
+import {appTextColor, placeholderColor} from '../utilities/Constants';
 
 export const AppText = ({children, style = {}}) => (
   <Text
     style={[
       {
-        color: COLORS.black,
+        color: appTextColor,
       },
       style,
     ]}>
@@ -24,12 +24,12 @@ export const AppTextInput = ({
   <TextInput
     style={[
       {
-        color: COLORS.black,
+        color: appTextColor,
       },
       style,
     ]}
     placeholder={placeholder}
-    placeholderTextColor={COLORS.basic500}
+    placeholderTextColor={placeholderColor}
     autoFocus={autoFocus}
     onChangeText={onChangeText}>
     {children}

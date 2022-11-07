@@ -1,15 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useCallback, useEffect, useState} from 'react';
 import {ActivityIndicator, SafeAreaView, View} from 'react-native';
+import {storageKeys, footerHeight, verticalGap} from '../utilities/Constants';
+import {GLOBAL_STYLES} from '../utilities/GlobalStyles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Task from '../components/task/Task';
 import TaskAdder from '../components/taskAdder/TaskAdder';
-import {storageKeys} from '../utilities/Constants';
-import {
-  footerHeight,
-  GLOBAL_STYLES,
-  verticalGap,
-} from '../utilities/GlobalStyles';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   isJSONParsable,
   saveDataToLocalStorage,

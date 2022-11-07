@@ -1,12 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {scale, verticalScale} from 'react-native-size-matters';
-import {appThemeColor} from './Constants';
-
-export const horizontalGap = scale(16);
-
-export const verticalGap = scale(18);
-
-export const footerHeight = verticalScale(45);
+import {appThemeColor, horizontalGap} from './Constants';
 
 export const GLOBAL_STYLES = StyleSheet.create({
   circle: {
