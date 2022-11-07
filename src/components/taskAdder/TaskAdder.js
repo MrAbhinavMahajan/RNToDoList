@@ -1,16 +1,11 @@
 import React, {memo, useState} from 'react';
-import {
-  Alert,
-  KeyboardAvoidingView,
-  Text,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native';
+import {Alert, KeyboardAvoidingView, TouchableHighlight} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {COLORS} from '../../utilities/Colors';
 import {isiOS} from '../../utilities/Constants';
 import {debounce} from '../../utilities/GlobalFunctions';
 import Messages from '../../utilities/Messages';
+import {AppText, AppTextInput} from '../Extensions';
 import {styles} from './Styles';
 
 const TaskAdder = ({setter, animatedStyles}) => {
@@ -21,13 +16,13 @@ const TaskAdder = ({setter, animatedStyles}) => {
       <KeyboardAvoidingView
         behavior={isiOS ? 'padding' : 'height'}
         style={styles.taskInputWrapper}>
-        <TextInput
+        <AppTextInput
           style={styles.taskInputInfo}
           placeholder="Write a task?"
           autoFocus
           onChangeText={debounce(setToDoItem, 300)}>
           {toDoItem}
-        </TextInput>
+        </AppTextInput>
       </KeyboardAvoidingView>
 
       <TouchableHighlight
@@ -41,7 +36,7 @@ const TaskAdder = ({setter, animatedStyles}) => {
         }}
         style={styles.taskIconWrapper}
         underlayColor={COLORS.basic500}>
-        <Text style={styles.taskIcon}>+</Text>
+        <AppText style={styles.taskIcon}>+</AppText>
       </TouchableHighlight>
     </Animated.View>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useCallback, useEffect, useState} from 'react';
-import {ActivityIndicator, SafeAreaView, Text, View} from 'react-native';
+import {ActivityIndicator, SafeAreaView, View} from 'react-native';
 import Task from '../components/task/Task';
 import TaskAdder from '../components/taskAdder/TaskAdder';
 import {storageKeys} from '../utilities/Constants';
@@ -22,6 +22,7 @@ import Animated, {
   interpolate,
 } from 'react-native-reanimated';
 import {APP_STYLES} from './Styles';
+import {AppText} from '../components/Extensions';
 
 const renderTaskItem = (item, index, removeTask) => (
   <Task task={item.task} index={index} removeTask={removeTask} />
@@ -56,7 +57,7 @@ const App = () => {
 
   const ListEmptyComponent = (
     <View style={APP_STYLES.emptyListWrapper}>
-      <Text style={APP_STYLES.emptyListInfo}>No task added yet!</Text>
+      <AppText style={APP_STYLES.emptyListInfo}>No task added yet!</AppText>
     </View>
   );
 
@@ -99,8 +100,10 @@ const App = () => {
     <SafeAreaView style={APP_STYLES.safeAreaWrapper}>
       <Animated.View style={[GLOBAL_STYLES.container]}>
         <View style={APP_STYLES.headerWrapper}>
-          <Text style={APP_STYLES.headerTitle}>To dos</Text>
-          <Text style={APP_STYLES.headerCount}>{toDoListData?.length}</Text>
+          <AppText style={APP_STYLES.headerTitle}>To dos</AppText>
+          <AppText style={APP_STYLES.headerCount}>
+            {toDoListData?.length}
+          </AppText>
         </View>
         <Animated.FlatList
           data={toDoListData ?? []}
