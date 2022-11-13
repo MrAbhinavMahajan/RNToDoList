@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {memo, useCallback} from 'react';
-import {View, TouchableHighlight} from 'react-native';
+import {View, TouchableHighlight, Animated} from 'react-native';
 import {GestureHandlerRootView, Swipeable} from 'react-native-gesture-handler';
 import {COLORS} from '../../../utilities/Colors';
 import {AppText} from '../../Extensions';
@@ -11,6 +11,26 @@ export const TaskCard = memo(({task, index, removeTask}) => {
     removeTask(index);
   }, [removeTask]);
 
+  const animatedButtonScale = new Animated.Value(1);
+
+  const onPressIn = () => {
+    Animated.spring(animatedButtonScale, {
+      toValue: 0.9,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const onPressOut = () => {
+    Animated.spring(animatedButtonScale, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const animatedScaleStyle = {
+    transform: [{scale: animatedButtonScale}],
+  };
+
   return (
     <GestureHandlerRootView>
       <Swipeable
@@ -20,15 +40,19 @@ export const TaskCard = memo(({task, index, removeTask}) => {
           </View>
         )}
         onSwipeableRightOpen={removeTaskItem}>
-        <TouchableHighlight
-          onPress={removeTaskItem}
-          style={styles.taskPressable}
-          underlayColor={COLORS.basic600}>
-          <View style={styles.taskWrapper}>
-            <View style={styles.taskIcon} />
-            <AppText style={styles.taskInfo}>{task}</AppText>
-          </View>
-        </TouchableHighlight>
+        <Animated.View style={[animatedScaleStyle]}>
+          <TouchableHighlight
+            onPress={removeTaskItem}
+            onPressIn={onPressIn}
+            onPressOut={onPressOut}
+            style={styles.taskPressable}
+            underlayColor={COLORS.basic600}>
+            <View style={styles.taskWrapper}>
+              <View style={styles.taskIcon} />
+              <AppText style={styles.taskInfo}>{task}</AppText>
+            </View>
+          </TouchableHighlight>
+        </Animated.View>
       </Swipeable>
     </GestureHandlerRootView>
   );
