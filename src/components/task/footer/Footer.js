@@ -4,6 +4,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   TouchableHighlight,
+  Easing,
 } from 'react-native';
 import Reanimated from 'react-native-reanimated';
 import {COLORS} from '../../../utilities/Colors';
@@ -32,34 +33,24 @@ const TaskListFooter = ({setter, animatedStyles}) => {
     }).start();
   };
 
-  const shakeInputContainer = () => {
-    Animated.sequence([
-      Animated.timing(shakeAnimation, {
-        toValue: 10,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: -10,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 10,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-      Animated.timing(shakeAnimation, {
-        toValue: 0,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-    ]).start();
+  const shakeInput = () => {
+    shakeAnimation.setValue(0);
+    Animated.spring(shakeAnimation, {
+      toValue: 3,
+      duration: 400,
+      ease: Easing.bounce,
+      useNativeDriver: true,
+    }).start();
   };
 
   const animatedScaleStyle = {
     transform: [{scale: animatedButtonScale}],
   };
+
+  const textInputInterpolated = shakeAnimation.interpolate({
+    inputRange: [0, 0.5, 1, 1.5, 2, 2.5, 3],
+    outputRange: [0, -15, 0, 15, 0, -15, 0],
+  });
 
   return (
     <Reanimated.View style={[styles.container, animatedStyles]}>
@@ -67,7 +58,7 @@ const TaskListFooter = ({setter, animatedStyles}) => {
         style={[
           styles.taskInputAnimatableWrapper,
           {
-            transform: [{translateX: shakeAnimation}],
+            transform: [{translateX: textInputInterpolated}],
           },
         ]}>
         <KeyboardAvoidingView
@@ -92,7 +83,7 @@ const TaskListFooter = ({setter, animatedStyles}) => {
               setter(toDoItem);
               setToDoItem();
             } else {
-              shakeInputContainer();
+              shakeInput();
               Alert.alert(Messages.taskTitle, Messages.invalidTaskInfo);
             }
           }}
