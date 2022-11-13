@@ -16,6 +16,7 @@ import {styles} from './Styles';
 const TaskListFooter = ({setter, animatedStyles}) => {
   const [toDoItem, setToDoItem] = useState();
   const animatedButtonScale = new Animated.Value(1);
+  const shakeAnimation = new Animated.Value(0);
 
   const onPressIn = () => {
     Animated.spring(animatedButtonScale, {
@@ -31,23 +32,56 @@ const TaskListFooter = ({setter, animatedStyles}) => {
     }).start();
   };
 
+  const shakeInputContainer = () => {
+    Animated.sequence([
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: -10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 0,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
   const animatedScaleStyle = {
     transform: [{scale: animatedButtonScale}],
   };
 
   return (
     <Reanimated.View style={[styles.container, animatedStyles]}>
-      <KeyboardAvoidingView
-        behavior={isiOS ? 'padding' : 'height'}
-        style={styles.taskInputWrapper}>
-        <AppTextInput
-          style={styles.taskInputInfo}
-          placeholder="Write a task?"
-          autoFocus
-          onChangeText={debounce(setToDoItem, 300)}>
-          {toDoItem}
-        </AppTextInput>
-      </KeyboardAvoidingView>
+      <Animated.View
+        style={[
+          styles.taskInputAnimatableWrapper,
+          {
+            transform: [{translateX: shakeAnimation}],
+          },
+        ]}>
+        <KeyboardAvoidingView
+          behavior={isiOS ? 'padding' : 'height'}
+          style={styles.taskInputWrapper}>
+          <AppTextInput
+            style={styles.taskInputInfo}
+            placeholder="Write a task?"
+            autoFocus
+            onChangeText={debounce(setToDoItem, 300)}>
+            {toDoItem}
+          </AppTextInput>
+        </KeyboardAvoidingView>
+      </Animated.View>
 
       <Animated.View style={[animatedScaleStyle]}>
         <TouchableHighlight
@@ -58,6 +92,7 @@ const TaskListFooter = ({setter, animatedStyles}) => {
               setter(toDoItem);
               setToDoItem();
             } else {
+              shakeInputContainer();
               Alert.alert(Messages.taskTitle, Messages.invalidTaskInfo);
             }
           }}

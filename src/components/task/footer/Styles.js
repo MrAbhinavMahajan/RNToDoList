@@ -14,9 +14,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: footerHeight,
   },
-  taskInputWrapper: {
+  taskInputAnimatableWrapper: {
     flex: 1,
     marginRight: horizontalGap,
+  },
+  taskInputWrapper: {
+    flex: 1,
     backgroundColor: COLORS.white,
     borderRadius: scale(30),
     paddingHorizontal: horizontalGap,
